@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<UserPrefs xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <masterVolume>100</masterVolume>
+  <sfxVolume>70</sfxVolume>
+  <backgroundVolume>70</backgroundVolume>
+  <windowedMode>true</windowedMode>
+  <contrast>0</contrast>
+</UserPrefs>
