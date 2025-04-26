@@ -10,17 +10,27 @@ public class Card : MonoBehaviour,
 {
     private bool m_IsHovered = false;
     private bool m_IsSelected = false;
+    private bool m_IsPlayable = false;
+
+    public void SetIsPlayable(bool toSet)
+    {
+        m_IsPlayable = toSet;
+    }
+
+    public virtual void PlayCard()
+    {
+        Debug.Log("Playing Card");
+        //Destroy(this.gameObject);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         m_IsHovered = true;
-        Debug.Log("Hover Start");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         m_IsHovered = false;
-        Debug.Log("Hover End");
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -28,31 +38,49 @@ public class Card : MonoBehaviour,
         if (m_IsHovered)
         {
             m_IsSelected = true;
-            Debug.Log("Selected");
         }
+    }
+
+    private Vector3 GetMouseWorldPosition(PointerEventData eventData)
+    {
+        Vector3 screenPosition = eventData.position;
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Camera.main.WorldToScreenPoint(transform.position).z));
+        worldPosition.z = 0f;
+        return worldPosition;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (m_IsSelected)
         {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            RectTransform rectTransform = this.gameObject.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = mousePos;
+            Vector3 mousePos = GetMouseWorldPosition(eventData);
+            transform.position = mousePos;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (m_IsSelected)
+        if (m_IsSelected && m_IsPlayable)
         {
-            Debug.Log("Released");
-            m_IsSelected = false;
+            PlayCard();
         }
     }
 
-    void PlayCard()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Playing Card");
+        if (collision.gameObject.CompareTag("PlayableArea"))
+        {
+            Debug.Log("Card is playable");
+            SetIsPlayable(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayableArea"))
+        {
+            Debug.Log("Card is not playable");
+            SetIsPlayable(false);
+        }
     }
 }
