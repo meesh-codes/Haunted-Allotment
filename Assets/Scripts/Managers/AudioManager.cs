@@ -84,8 +84,6 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        
-
     }
 
 
@@ -125,7 +123,6 @@ public class AudioManager : MonoBehaviour
         {
             GameObject _go = new GameObject("Sound_" + s.name);
             s.SetSource(_go.AddComponent<AudioSource>());
-            //Debug.Log(s.source);
             s.source.clip = s.clip;
             s.manager = this;
             if (s.type == SoundType.SFX)
@@ -208,16 +205,6 @@ public class AudioManager : MonoBehaviour
             dialogueSounds[playIndex].Play();
         }
         
-    }
-
-    public void TransitionSoundOut() 
-    {
-        
-    }
-
-    public void TransitionSoundIn()
-    {
-
     }
 
     public void DeleteSelf() {
