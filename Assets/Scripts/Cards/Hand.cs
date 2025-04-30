@@ -1,17 +1,18 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Hand : MonoBehaviour
 {
     public float cardSpacing;
     public int maxSize = 8;
 
-    public Card[] cards;
+    public List<Card> cards;
 
     public void ArrangeCards()
     {
-        if (cards.Length > 0)
+        if (cards.Count > 0)
         {
-            float initialOffset = (cards.Length/2) * cardSpacing;
+            float initialOffset = (cards.Count/2) * cardSpacing;
             float initialXPos = transform.position.x - initialOffset;
             Vector3 spawnPos = new Vector3(initialXPos, transform.position.y, 0);
 
@@ -29,7 +30,22 @@ public class Hand : MonoBehaviour
                 layer++;
             }
         }
-        
+    }
 
+    public void DrawCards(int numberToDraw)
+    {
+        Deck deck = GameManager.instance.deck;
+        deck.ShuffleCards();
+        for (int i = 0; i < numberToDraw; i++)
+        {
+            // draw the first card and remove it from the deck
+            if (deck.cards.Count > 0)
+            {
+                cards.Add(Instantiate(deck.cards[0], new Vector3(0,0,0), Quaternion.identity));
+                deck.cards.RemoveAt(0);
+            }
+        }
+
+        ArrangeCards();
     }
 }

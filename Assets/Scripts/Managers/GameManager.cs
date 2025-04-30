@@ -1,3 +1,5 @@
+using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +11,11 @@ public class GameManager : MonoBehaviour
 
     public int m_Energy = 5;
     public int m_MaxEnergy = 5;
+
+    public Deck deck;
+    public Hand hand;
+
+    public Card[] cardTypes;
 
     private void Awake()
     {
@@ -39,6 +46,8 @@ public class GameManager : MonoBehaviour
         m_Energy = m_MaxEnergy;
         // todo: save data
         // draw a new hand
-        Deck.instance.ShuffleCards();
+        deck.ShuffleCards();
     }
+
+
 }
