@@ -283,3 +283,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandPosition: {x: 0, y: 0, z: 0}
+  m_GatherCost: 2
