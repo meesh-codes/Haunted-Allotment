@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlayableArea
+  - ForagingScreen
+  - GardeningScreen
+  - PauseMenu
+  - EnergyText
+  - DayText
   layers:
   - Default
   - TransparentFX

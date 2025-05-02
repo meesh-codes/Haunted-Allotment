@@ -14,6 +14,7 @@ public class Card : MonoBehaviour,
 
     public Vector3 m_HandPosition;
     private float m_HoverOffset = 0.4f;
+    public int m_GatherCost = 0;
 
     public void SetIsPlayable(bool toSet)
     {

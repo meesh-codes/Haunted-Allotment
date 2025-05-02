@@ -34,7 +34,9 @@ public class Hand : MonoBehaviour
 
     public void DrawCards(int numberToDraw)
     {
-        Deck deck = GameManager.instance.deck;
+        GameManager gm = FindFirstObjectByType<GameManager>();
+
+        Deck deck = gm.deck;
         deck.ShuffleCards();
         for (int i = 0; i < numberToDraw; i++)
         {
@@ -47,5 +49,31 @@ public class Hand : MonoBehaviour
         }
 
         ArrangeCards();
+    }
+
+    public void DrawAdditionalCard(int cost)
+    {
+        GameManager gm = FindFirstObjectByType<GameManager>();
+
+        if (gm.RequestAction(cost))
+        {
+            DrawCards(1);
+
+            gm.TakeAction(cost);
+        }
+        else
+        {
+            // TODO feedback to player
+        }
+    }
+
+    public void Clear()
+    {
+        foreach (Card card in cards)
+        {
+            Destroy(card.gameObject);
+        }
+
+        cards.Clear();
     }
 }
